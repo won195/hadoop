@@ -1,0 +1,40 @@
+# hosts 파일 수정
+
+* Hadoop 클러스터내 서버들은 서로 SSH 프로토콜을 이용하여 통신
+```
+SSH(Secure SHell)
+* 네트워크 상의 다른 컴퓨터에 로그인하거나 원격 시스템에서 명령을 실행하고, 다른 시스템으로 파일을 복사할 수
+있게 해주는 응용 프로토콜이나 응용 프로그램을 가리킴.
+* 기존의 rsh, rlogin, telnet 등을 대체하기 위하여 설계되었으며, 강력한 인증 방법 및 안전하지 못한 네트워크에서 안
+전하게 통신할 수 있는 기능을 제공함.
+* 기본적으로 22번 포트 사용
+* 암호화 기법을 사용하므로 통신이 노출된다 하더라도 이해하기 힘든 암호화 문자로 보임
+```
+* 명령어를 통해 ssh 서버 패키지 설치
+```
+ubuntu@master:~$ sudo apt install -y openssh-server
+```
+  * 설치 완료 후 ssh 서버 상태 확인
+    ```
+    ubuntu@master:~$ sudo service ssh status
+    # 아래와 같이 'Active: active (running)'이 출력되면 정상적으로 서버 실행 중
+    ● ssh.service - OpenBSD Secure Shell server
+          Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+          Active: active (running) since Thu 2022-00-00 00:00:00 KST; 00min ago
+            Docs: man:sshd(8)
+                  man:sshd_config(5)
+        Main PID: 5383 (sshd)
+           Tasks: 1 (limit: 4572)
+          Memory: 1.0M
+          CGroup: /system.slice/ssh.service
+     └─5383 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+     5월 18 13:54:23 master systemd[1]: Starting OpenBSD Secure Shell server...
+     5월 18 13:54:23 master sshd[5383]: Server listening on 0.0.0.0 port 22.
+     5월 18 13:54:23 master sshd[5383]: Server listening on :: port 22.
+     5월 18 13:54:23 master systemd[1]: Started OpenBSD Secure Shell server.
+     ```
+     * 만약 ssh 서버가 활성화 되어있지 않다면 다음 명령어를 통해 서버 실행
+     ```
+     ubuntu@master:~$ sudo service ssh start
+     ```
+* 
